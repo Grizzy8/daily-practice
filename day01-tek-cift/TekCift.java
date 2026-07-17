@@ -12,5 +12,6 @@ public class TekCift {
         } else {
             System.out.println("Tek");
         }
+        input.close();
     }
 }
