@@ -5,13 +5,18 @@ public class TekCift {
         Scanner input = new Scanner(System.in);
 
         System.out.print("Bir sayı giriniz: ");
-        int sayi1 = input.nextInt();
-
-        if (sayi1 % 2 == 0) {
-            System.out.println("Çift");
+        if (input.hasNextInt()) {
+            int sayi = input.nextInt();
+            // yazdığım kontrol negatif sayılar içinde çalışıyor o nedenle negatif/pozitif kontrolü yok
+            if (sayi % 2 == 0) {
+                System.out.println("Çift");
+            } else {
+                System.out.println("Tek");
+            }
         } else {
-            System.out.println("Tek");
+            System.out.println("Sayı girsene lan .xd");
         }
+
         input.close();
     }
 }
