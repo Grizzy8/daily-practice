@@ -14,12 +14,6 @@ public class KelimeSayaci {
         // kelime sayma
         System.out.println("Toplam kelime sayısı: " + kelimeler.length);
 
-        for (String k : kelimeler) {
-            System.out.print(k + " / ");
-        }
-
-        System.out.println();
-
         // en uzun kelimeyi bulma
         String enUzunKelime = kelimeler[0];
         for (int i = 0; i < kelimeler.length; i++) {
