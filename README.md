@@ -7,3 +7,4 @@ Günlük kod pratikleri, küçük denemeler ve öğrenme kayıtları.
 - [x] Day 01 - Tek/Çift Kontrolü (Java)
 - [x] Day 02 - Kelime Sayacı (Java)
 - [x] Day 03 - Basit Hesap Makinesi (Java)
+- [x] Day 04 - Dizide En Büyük/En Küçük (Java)
