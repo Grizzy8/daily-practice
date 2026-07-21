@@ -15,11 +15,11 @@ public class SayiTahmin {
                 System.out.println((denemeSayac + 1) + ". denemede doğru buldun");
                 break;
             } else {
-                System.out.println("Yanlış tahmin");
+                System.out.print("Yanlış tahmin,");
                 if (rastgeleSayi < tahminSayi) {
-                    System.out.println("Daha küçük bir sayı tahmin et");
+                    System.out.println(" daha küçük bir sayı tahmin et");
                 } else {
-                    System.out.println("Daha büyük bir sayi tahmin et");
+                    System.out.println(" daha büyük bir sayi tahmin et");
                 }
                 denemeSayac++;
             }
