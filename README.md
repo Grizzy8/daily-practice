@@ -9,3 +9,4 @@ Günlük kod pratikleri, küçük denemeler ve öğrenme kayıtları.
 - [x] Day 03 - Basit Hesap Makinesi (Java)
 - [x] Day 04 - Dizide En Büyük/En Küçük (Java)
 - [x] Day 05 - Sayı Tahmin Oyunu (Java)
+- [x] Day 06 - Palindrom Kontrolü (Java)
