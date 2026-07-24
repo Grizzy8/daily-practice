@@ -12,3 +12,4 @@ Günlük kod pratikleri, küçük denemeler ve öğrenme kayıtları.
 - [x] Day 06 - Palindrom Kontrolü (Java)
 - [x] Day 07 - Not Ortalaması (Java)
 - [x] Day 08 - Öğrenci Sınıfı (OOP Giriş) (Java)
+- [x] Day 09 - ArrayList ile İsim Listesi (Java)
