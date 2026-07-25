@@ -19,7 +19,7 @@ public class IsimNot {
 
         for (int i = 0; i < listeUzunluk; i++) {
             System.out.print((i + 1) + ". İsim: ");
-            String isim = giris.nextLine().toLowerCase();
+            String isim = giris.nextLine().toLowerCase().trim();
             while(true){
                 if(liste.containsKey(isim)){
                     System.out.print("Bu isim zaten kayıtlı, farklı bir isim girin: ");
