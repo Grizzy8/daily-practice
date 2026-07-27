@@ -15,3 +15,4 @@ Günlük kod pratikleri, küçük denemeler ve öğrenme kayıtları.
 - [x] Day 09 - ArrayList ile İsim Listesi (Java)
 - [x] Day 10 - HashMap ile İsim-Not Kaydı (Java)
 - [x] Day 11 - Basit Dosya Yazma (Java)
+- [x] Day 12 - Basit Dosya Okuma (Java)
