@@ -1,37 +1,38 @@
+import java.util.Scanner;
+
 public class BuyukKucuk {
 
-    public static void enBuyuk(int[] dizi) {
+    public static int enBuyuk(int[] dizi) {
         int enBuyuk = dizi[0];
-        for (int i = 0; i < dizi.length; i++) {
+        for (int i = 1; i < dizi.length; i++) {
             if (dizi[i] > enBuyuk) {
                 enBuyuk = dizi[i];
             }
         }
-        System.out.println("En büyük sayı: " + enBuyuk);
+        return enBuyuk;
     }
 
-    public static void enKucuk(int[] dizi) {
+    public static int enKucuk(int[] dizi) {
         int enKucuk = dizi[0];
-        for (int i = 0; i < dizi.length; i++) {
+        for (int i = 1; i < dizi.length; i++) {
             if (dizi[i] < enKucuk) {
                 enKucuk = dizi[i];
             }
         }
-        System.out.println("En küçük sayı: " + enKucuk);
+        return enKucuk;
     }
 
-    public static void ortalama(int[] dizi) {
+    public static double ortalama(int[] dizi) {
         int toplam = 0;
         for (int i = 0; i < dizi.length; i++) {
             toplam += dizi[i];
         }
-        double ortalama = (double) toplam / dizi.length;
-        System.out.printf("Ortalama: %.2f%n", ortalama);
+        return (double) toplam / dizi.length;
     }
 
-    public static void ikinciEnBuyuk(int[] dizi) {
+    public static int ikinciEnBuyuk(int[] dizi) {
         int enBuyuk = dizi[0];
-        int ikinciEnBuyuk = dizi[1];
+        int ikinciEnBuyuk = dizi[0];
         for (int i = 1; i < dizi.length; i++) {
             if (dizi[i] > enBuyuk) {
                 ikinciEnBuyuk = enBuyuk;
@@ -40,15 +41,58 @@ public class BuyukKucuk {
                 ikinciEnBuyuk = dizi[i];
             }
         }
-        System.out.println("İkinci en büyük: " + ikinciEnBuyuk);
+        return ikinciEnBuyuk;
+    }
+
+    public static int diziBoyutAl(Scanner giriss) {
+        int diziUzunluk = 0;
+        while (true) {
+            System.out.print("Girilecek sayı adeti: ");
+            if (giriss.hasNextInt()) {
+                diziUzunluk = giriss.nextInt();
+                giriss.nextLine();
+                if (0 < diziUzunluk) {
+                    break;
+                } else {
+                    System.out.println("Sayı adeti negatif olamaz");
+                }
+            } else {
+                System.out.println("Adet sayısal olmalıdır!");
+                giriss.nextLine();
+            }
+        }
+        return diziUzunluk;
+    }
+
+    public static int[] diziDoldur(Scanner giriss) {
+        int boyut = diziBoyutAl(giriss);
+        int[] sayilar = new int[boyut];
+
+        for (int i = 0; i < boyut; i++) {
+            System.out.print((i + 1) + ". sayı: ");
+            while (true) {
+                if (giriss.hasNextInt()) {
+                    sayilar[i] = giriss.nextInt();
+                    break;
+                } else {
+                    System.out.println("Tam sayı girin!");
+                    giriss.nextLine();
+                }
+            }
+        }
+        return sayilar;
     }
 
     public static void main(String[] args) {
-        int[] sayilar = { 12, 43, 65, 87, 100, 93, 49, 51, 63, 70, 81 };
+        Scanner giriss = new Scanner(System.in);
 
-        enBuyuk(sayilar);
-        enKucuk(sayilar);
-        ortalama(sayilar);
-        ikinciEnBuyuk(sayilar);
+        int[] sayilar = diziDoldur(giriss);
+
+        System.out.println("En büyük sayı: " + enBuyuk(sayilar));
+        System.out.println("En küçük sayı: " + enKucuk(sayilar));
+        System.out.printf("Ortalama: %.2f%n", ortalama(sayilar));
+        System.out.println("İkinci en büyük: " + ikinciEnBuyuk(sayilar));
+
+        giriss.close();
     }
 }
