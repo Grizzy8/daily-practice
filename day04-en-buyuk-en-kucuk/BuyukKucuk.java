@@ -44,13 +44,13 @@ public class BuyukKucuk {
         return ikinciEnBuyuk;
     }
 
-    public static int diziBoyutAl(Scanner giriss) {
+    public static int diziBoyutAl(Scanner giris) {
         int diziUzunluk = 0;
         while (true) {
             System.out.print("Girilecek sayı adeti: ");
-            if (giriss.hasNextInt()) {
-                diziUzunluk = giriss.nextInt();
-                giriss.nextLine();
+            if (giris.hasNextInt()) {
+                diziUzunluk = giris.nextInt();
+                giris.nextLine();
                 if (0 < diziUzunluk) {
                     break;
                 } else {
@@ -58,25 +58,25 @@ public class BuyukKucuk {
                 }
             } else {
                 System.out.println("Adet sayısal olmalıdır!");
-                giriss.nextLine();
+                giris.nextLine();
             }
         }
         return diziUzunluk;
     }
 
-    public static int[] diziDoldur(Scanner giriss) {
-        int boyut = diziBoyutAl(giriss);
+    public static int[] diziDoldur(Scanner giris) {
+        int boyut = diziBoyutAl(giris);
         int[] sayilar = new int[boyut];
 
         for (int i = 0; i < boyut; i++) {
             System.out.print((i + 1) + ". sayı: ");
             while (true) {
-                if (giriss.hasNextInt()) {
-                    sayilar[i] = giriss.nextInt();
+                if (giris.hasNextInt()) {
+                    sayilar[i] = giris.nextInt();
                     break;
                 } else {
                     System.out.println("Tam sayı girin!");
-                    giriss.nextLine();
+                    giris.nextLine();
                 }
             }
         }
@@ -84,15 +84,15 @@ public class BuyukKucuk {
     }
 
     public static void main(String[] args) {
-        Scanner giriss = new Scanner(System.in);
+        Scanner giris = new Scanner(System.in);
 
-        int[] sayilar = diziDoldur(giriss);
+        int[] sayilar = diziDoldur(giris);
 
         System.out.println("En büyük sayı: " + enBuyuk(sayilar));
         System.out.println("En küçük sayı: " + enKucuk(sayilar));
         System.out.printf("Ortalama: %.2f%n", ortalama(sayilar));
         System.out.println("İkinci en büyük: " + ikinciEnBuyuk(sayilar));
 
-        giriss.close();
+        giris.close();
     }
 }
