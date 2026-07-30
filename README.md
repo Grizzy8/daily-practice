@@ -18,3 +18,4 @@ Günlük kod pratikleri, küçük denemeler ve öğrenme kayıtları.
 - [x] Day 12 - Basit Dosya Okuma (Java)
 - [x] Day 13 - Basit Kitaplık Sistemi (Java)
 - [x] Day 14 - Basit Öğrenci Not Sistemi (Java)
+- [x] Day 15 - Kalıtım (Java)
