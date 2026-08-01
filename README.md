@@ -20,3 +20,4 @@ Günlük kod pratikleri, küçük denemeler ve öğrenme kayıtları.
 - [x] Day 14 - Basit Öğrenci Not Sistemi (Java)
 - [x] Day 15 - Kalıtım (Java)
 - [x] Day 16 - Interface (Java)
+- [x] Day 17 - Custom Exception (Java)
