@@ -21,3 +21,4 @@ Günlük kod pratikleri, küçük denemeler ve öğrenme kayıtları.
 - [x] Day 15 - Kalıtım (Java)
 - [x] Day 16 - Interface (Java)
 - [x] Day 17 - Custom Exception (Java)
+- [x] Day 18 - İç İçe Koleksiyonlar (Java)
