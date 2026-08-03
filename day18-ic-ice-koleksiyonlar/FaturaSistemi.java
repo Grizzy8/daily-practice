@@ -46,7 +46,6 @@ public class FaturaSistemi {
                         sonuclar.add("Daire " + daireAdi + " | " + (i + 1) + ". ay: anormal artış %" + artisYuzdesi);
                     }
                 }
-
             }
         }
         return sonuclar;
