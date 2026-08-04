@@ -23,3 +23,4 @@ Günlük kod pratikleri, küçük denemeler ve öğrenme kayıtları.
 - [x] Day 17 - Custom Exception (Java)
 - [x] Day 18 - İç İçe Koleksiyonlar (Java)
 - [x] Day 19 - Comparator ile Sıralama (Java)
+- [x] Day 20 - Mini Araç Filosu (Kalıtım + Menü) (Java)
