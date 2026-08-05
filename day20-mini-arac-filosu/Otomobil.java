@@ -9,4 +9,9 @@ public class Otomobil extends Tasit {
     public int getBagajHacmi() {
         return bagajHacmi;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " | Bagaj Hacmi: " + bagajHacmi;
+    }
 }
