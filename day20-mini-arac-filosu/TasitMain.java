@@ -99,7 +99,18 @@ public class TasitMain {
         }
     }
 
-    // TODO: tasitSil() - sonraki commit'te eklenecek
+    private static void tasitSil(Scanner input, String mesaj) {
+        System.out.printf(mesaj);
+        String silinecekPlaka = input.nextLine();
+        for (int i = 0; i < tasitlar.size(); i++) {
+            if (tasitlar.get(i).getPlaka().equalsIgnoreCase(silinecekPlaka)) {
+                tasitlar.remove(i);
+                System.out.println(silinecekPlaka + " plakalı araç listeden başarıyla silindi.");
+                return;
+            }
+        }
+        System.out.println(silinecekPlaka + " plakalı taşıt bulunamadı!");
+    }
 
     private static void menuDongusu(Scanner input) {
         while (true) {
@@ -113,7 +124,7 @@ public class TasitMain {
                     tasitEkle(input, ekleTercih);
                     break;
                 case 2:
-                    // Taşıt silme
+                    tasitSil(input, "Silinecek olan taşıtın plakası nedir?%nPlaka: ");
                     break;
                 case 3:
                     for (Tasit t : tasitlar) {

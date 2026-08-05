@@ -25,6 +25,10 @@ public class Tasit {
         return yakit_turu;
     }
 
+    public String getPlaka() {
+        return plaka;
+    }
+
     @Override
     public String toString() {
         return marka + " " + model + " | Plaka: " + plaka + " | Km: " + km + " | Yakıt: " + yakit_turu;
