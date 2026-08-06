@@ -1,4 +1,9 @@
 public class PlayOffMaci extends Mac {
+
+    public PlayOffMaci(Takim evSahibi, Takim deplasman) {
+        super(evSahibi, deplasman);
+    }
+
     @Override
     void sonucuIsle() {
         if (getEvSahibiSkor() < getDeplasmanSkor()) {

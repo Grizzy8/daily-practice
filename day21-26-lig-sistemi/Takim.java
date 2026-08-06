@@ -18,6 +18,10 @@ public class Takim {
         this.yenilenGol = yenilenGol;
     }
 
+    public String getIsim() {
+        return isim;
+    }
+
     public int puanHesapla() {
         return (galibiyet * 3) + beraberlik;
     }
@@ -48,5 +52,11 @@ public class Takim {
 
     public void yenilenGolEkle(int yenilenGol) {
         this.yenilenGol += yenilenGol;
+    }
+
+    @Override
+    public String toString() {
+        return "Takım: " + isim + " | OM: " + oynananMac + " G: " + galibiyet + " B: " + beraberlik + " M: " + maglubiyet
+                + " AG: " + atilanGol + " YG: " + yenilenGol + " A: " + averajHesapla();
     }
 }

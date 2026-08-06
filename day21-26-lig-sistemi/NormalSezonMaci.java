@@ -1,4 +1,9 @@
 public class NormalSezonMaci extends Mac {
+
+    public NormalSezonMaci(Takim evSahibi, Takim deplasman) {
+        super(evSahibi, deplasman);
+    }
+
     @Override
     void sonucuIsle() {
         if (getEvSahibiSkor() < getDeplasmanSkor()) {
