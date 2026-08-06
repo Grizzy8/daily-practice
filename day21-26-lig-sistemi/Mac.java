@@ -4,6 +4,11 @@ abstract class Mac {
     private int evSahibiSkor;
     private int deplasmanSkor;
 
+    protected Mac(Takim evSahibi, Takim deplasman) {
+        this.evSahibi = evSahibi;
+        this.deplasman = deplasman;
+    }
+
     abstract void sonucuIsle();
 
     protected Takim getEvSahibi() {
@@ -20,5 +25,10 @@ abstract class Mac {
 
     protected int getDeplasmanSkor() {
         return deplasmanSkor;
+    }
+
+    void setSkor(int evSahibiSkor, int deplasmanSkor) {
+        this.evSahibiSkor = evSahibiSkor;
+        this.deplasmanSkor = deplasmanSkor;
     }
 }
