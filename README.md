@@ -24,3 +24,5 @@ Günlük kod pratikleri, küçük denemeler ve öğrenme kayıtları.
 - [x] Day 18 - İç İçe Koleksiyonlar (Java)
 - [x] Day 19 - Comparator ile Sıralama (Java)
 - [x] Day 20 - Mini Araç Filosu (Kalıtım + Menü) (Java)
+- [x] Day 21 - Lig Sistemi: Temel Sınıflar (Takım, Maç kalıtımı) (Java)
+- [x] Day 22 - Lig Sistemi: Fikstür Üretimi ve Sezon Simülasyonu (Java)
