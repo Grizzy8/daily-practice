@@ -10,26 +10,20 @@ public class Lig {
         this.maclar = new ArrayList<>();
     }
 
-    void takimEkle(Takim yeniTakim) {
-        takimlar.put(yeniTakim.getIsim(), yeniTakim);
+    void takimEkle(Takim yeniTakim) throws TakimZatenVarException {
+        if (takimlar.containsKey(yeniTakim.getIsim().toUpperCase())) {
+            throw new TakimZatenVarException("Takım zaten var");
+        } else {
+            takimlar.put(yeniTakim.getIsim().toUpperCase(), yeniTakim);
+        }
     }
 
-    Takim getTakim(String isim) {
-        return takimlar.get(isim);
-    }
-
-    void macEkle(Mac mac) {
-        maclar.add(mac);
-    }
-
-    ArrayList<Mac> getMaclar() {
-        return new ArrayList<>(maclar);
-    }
-
-    void tumMaclariOyna() {
-        for (Mac m : getMaclar()) {
-            m.setSkor(rastgeleSkorOlustur(), rastgeleSkorOlustur());
-            m.sonucuIsle();
+    Takim getTakim(String isim) throws TakimBulunamadiException {
+        String aramaIsim = isim.toUpperCase();
+        if (takimlar.get(aramaIsim) == null) {
+            throw new TakimBulunamadiException("Takım bulunamadı.");
+        } else {
+            return takimlar.get(aramaIsim);
         }
     }
 
@@ -38,33 +32,14 @@ public class Lig {
             for (Takim deplasman : takimlar.values()) {
                 if (ev != deplasman) {
                     NormalSezonMaci sMac = new NormalSezonMaci(ev, deplasman);
-                    maclar.add(sMac);
+                    macEkle(sMac);
                 }
             }
         }
     }
 
-    Mac macBul(String evIsim, String deplasmanIsim) {
-        for (Mac m : maclar) {
-            if (m.getEvSahibi().getIsim().equalsIgnoreCase(evIsim)
-                    && m.getDeplasman().getIsim().equalsIgnoreCase(deplasmanIsim)) {
-                return m;
-            }
-        }
-        return null;
-    }
-
-    void puanTablosunuYazdir(boolean tersMi) {
-        ArrayList<Takim> liste = siraliPuanTablosu(tersMi);
-        System.out.println("________________________________________________________________________");
-        System.out.printf("| %-4s | %-13s | %3s | %3s | %3s | %3s | %3s | %3s | %3s | %3s |%n", "Sıra", "Takım", "OM",
-                "G", "B", "M", "AG", "YG", "A", "P");
-        for (int i = 0; i < liste.size(); i++) {
-            Takim t = liste.get(i);
-            System.out.printf("| %4d | %-13s | %3d | %3d | %3d | %3d | %3d | %3d | %3d | %3d |%n", (i + 1), t.getIsim(),
-                    t.oynananMacHesapla(), t.getGalibiyet(), t.getBeraberlik(), t.getMaglubiyet(), t.getAtilanGol(),
-                    t.getYenilenGol(), t.averajHesapla(), t.puanHesapla());
-        }
+    void macEkle(Mac mac) {
+        maclar.add(mac);
     }
 
     ArrayList<Takim> siraliPuanTablosu(boolean tersMi) {
@@ -86,10 +61,6 @@ public class Lig {
         return liste;
     }
 
-    private int rastgeleSkorOlustur() {
-        return (int) (Math.random() * 6);
-    }
-
     private boolean oncelikliMi(Takim a, Takim b) {
         if (b.puanHesapla() < a.puanHesapla()) {
             return true;
@@ -108,5 +79,44 @@ public class Lig {
         } else {
             return false;
         }
+    }
+
+    void macSkorGir(String evIsim, String deplasmanIsim, int evSkor, int deplasmanSkor)
+            throws MacBulunamadiException, MacZatenOynandiException, GecersizSkorException,
+            BerabereSonuclanamazException {
+        Mac m = macBul(evIsim, deplasmanIsim);
+        if (m == null) {
+            throw new MacBulunamadiException("Maç bulunamadı.");
+        } else {
+            if (m.getOynandiMi()) {
+                throw new MacZatenOynandiException("Maç oynandı skorları değiştiremezsiniz.");
+            } else {
+                m.setSkor(evSkor, deplasmanSkor);
+                m.sonucuIsle();
+            }
+        }
+    }
+
+    Mac macBul(String evIsim, String deplasmanIsim) {
+        for (Mac m : maclar) {
+            if (m.getEvSahibi().getIsim().equalsIgnoreCase(evIsim)
+                    && m.getDeplasman().getIsim().equalsIgnoreCase(deplasmanIsim)) {
+                return m;
+            }
+        }
+        return null;
+    }
+
+    void tumMaclariOyna() throws GecersizSkorException, BerabereSonuclanamazException {
+        for (Mac m : getMaclar()) {
+            if (!m.getOynandiMi()) {
+                m.skorlariUret();
+                m.sonucuIsle();
+            }
+        }
+    }
+
+    ArrayList<Mac> getMaclar() {
+        return new ArrayList<>(maclar);
     }
 }

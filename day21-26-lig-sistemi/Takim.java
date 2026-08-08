@@ -16,15 +16,32 @@ public class Takim {
         this.yenilenGol = yenilenGol;
     }
 
-    @Override
-    public String toString() {
-        return "Takım: " + isim + " | OM: " + oynananMacHesapla() + " G: " + galibiyet + " B: " + beraberlik + " M: "
-                + maglubiyet
-                + " AG: " + atilanGol + " YG: " + yenilenGol + " A: " + averajHesapla();
+    void galibiyetEkle() {
+        galibiyet++;
+    }
+
+    void beraberlikEkle() {
+        beraberlik++;
+    }
+
+    void maglubiyetEkle() {
+        maglubiyet++;
+    }
+
+    void atilanGolEkle(int atilanGol) {
+        this.atilanGol += atilanGol;
+    }
+
+    void yenilenGolEkle(int yenilenGol) {
+        this.yenilenGol += yenilenGol;
     }
 
     String getIsim() {
         return isim;
+    }
+
+    int oynananMacHesapla() {
+        return galibiyet + beraberlik + maglubiyet;
     }
 
     int getGalibiyet() {
@@ -47,35 +64,18 @@ public class Takim {
         return yenilenGol;
     }
 
-    int puanHesapla() {
-        return (galibiyet * 3) + beraberlik;
-    }
-
-    int oynananMacHesapla() {
-        return galibiyet + beraberlik + maglubiyet;
-    }
-
     int averajHesapla() {
         return atilanGol - yenilenGol;
     }
 
-    void galibiyetEkle() {
-        galibiyet++;
+    int puanHesapla() {
+        return (galibiyet * 3) + beraberlik;
     }
 
-    void beraberlikEkle() {
-        beraberlik++;
-    }
-
-    void maglubiyetEkle() {
-        maglubiyet++;
-    }
-
-    void atilanGolEkle(int atilanGol) {
-        this.atilanGol += atilanGol;
-    }
-
-    void yenilenGolEkle(int yenilenGol) {
-        this.yenilenGol += yenilenGol;
+    @Override
+    public String toString() {
+        return "Takım: " + isim + " | OM: " + oynananMacHesapla() + " G: " + galibiyet + " B: " + beraberlik + " M: "
+                + maglubiyet
+                + " AG: " + atilanGol + " YG: " + yenilenGol + " A: " + averajHesapla();
     }
 }

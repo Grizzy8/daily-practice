@@ -5,7 +5,21 @@ public class PlayOffMaci extends Mac {
     }
 
     @Override
-    void sonucuIsle() {
+    protected void skorlariUret() throws GecersizSkorException {
+        boolean gecerliSkor = false;
+        while (!gecerliSkor) {
+            int evSkor = rastgeleSkorOlustur();
+            int deplasmanSkor = rastgeleSkorOlustur();
+
+            if (evSkor != deplasmanSkor) {
+                setSkor(evSkor, deplasmanSkor);
+                gecerliSkor = true;
+            }
+        }
+    }
+
+    @Override
+    void sonucuHesapla() throws BerabereSonuclanamazException {
         if (getEvSahibiSkor() < getDeplasmanSkor()) {
             getDeplasman().galibiyetEkle();
             getDeplasman().atilanGolEkle(getDeplasmanSkor());
@@ -23,7 +37,7 @@ public class PlayOffMaci extends Mac {
             getDeplasman().atilanGolEkle(getDeplasmanSkor());
             getDeplasman().yenilenGolEkle(getEvSahibiSkor());
         } else {
-            // TODO: playoff'ta beraberlik geçersiz, Day24'te custom exception ile ele alınacak
+            throw new BerabereSonuclanamazException("Berabere sonuclanamaz.");
         }
     }
 }

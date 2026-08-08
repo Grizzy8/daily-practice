@@ -5,7 +5,15 @@ public class NormalSezonMaci extends Mac {
     }
 
     @Override
-    void sonucuIsle() {
+    protected void skorlariUret() throws GecersizSkorException {
+        int evSkor = rastgeleSkorOlustur();
+        int deplasmanSkor = rastgeleSkorOlustur();
+
+        setSkor(evSkor, deplasmanSkor);
+    }
+
+    @Override
+    void sonucuHesapla() {
         if (getEvSahibiSkor() < getDeplasmanSkor()) {
             getDeplasman().galibiyetEkle();
             getDeplasman().atilanGolEkle(getDeplasmanSkor());
