@@ -1,5 +1,10 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Lig {
     private HashMap<String, Takim> takimlar;
@@ -11,6 +16,10 @@ public class Lig {
     }
 
     void takimEkle(Takim yeniTakim) throws TakimZatenVarException {
+        // toUpperCase() JVM'in varsayılan Locale'ini kullanıyor. Türkçe locale'de "i"
+        // -> "İ" olurken
+        // İngilizce'de "I" olur, bu nedenle aynı isim farklı yollardan girilirse
+        // harfler tutarsız büyüyebilir.
         if (takimlar.containsKey(yeniTakim.getIsim().toUpperCase())) {
             throw new TakimZatenVarException("Takım zaten var");
         } else {
@@ -30,7 +39,7 @@ public class Lig {
     void fiksturOlustur() {
         for (Takim ev : takimlar.values()) {
             for (Takim deplasman : takimlar.values()) {
-                if (ev != deplasman) {
+                if (ev != deplasman && macBul(ev.getIsim(), deplasman.getIsim()) == null) {
                     NormalSezonMaci sMac = new NormalSezonMaci(ev, deplasman);
                     macEkle(sMac);
                 }
@@ -47,8 +56,8 @@ public class Lig {
         for (int i = 0; i < liste.size() - 1; i++) {
             int oncelikliIndex = i;
             for (int j = i + 1; j < liste.size(); j++) {
-                boolean sonuc = oncelikliMi(liste.get(j), liste.get(oncelikliIndex));
-                if (tersMi ? !sonuc : sonuc) {
+                boolean jOncelikliMi = oncelikliMi(liste.get(j), liste.get(oncelikliIndex));
+                if (tersMi ? !jOncelikliMi : jOncelikliMi) {
                     oncelikliIndex = j;
                 }
             }
@@ -70,6 +79,12 @@ public class Lig {
             } else if (b.averajHesapla() == a.averajHesapla()) {
                 if (b.getAtilanGol() < a.getAtilanGol()) {
                     return true;
+                } else if (b.getAtilanGol() == a.getAtilanGol()) {
+                    if (b.getIsim().compareTo(a.getIsim()) < 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
@@ -118,5 +133,63 @@ public class Lig {
 
     ArrayList<Mac> getMaclar() {
         return new ArrayList<>(maclar);
+    }
+
+    void kaydetLig(String dosyaAdi) throws IOException {
+        try (PrintWriter yaziciLig = new PrintWriter(new FileWriter("day21-26-lig-sistemi/" + dosyaAdi))) {
+            for (Takim t : takimlar.values()) {
+                yaziciLig.println(t.dosyaSatiri());
+            }
+        }
+    }
+
+    void kaydetMac(String dosyaAdi) throws IOException {
+        try (PrintWriter yaziciMac = new PrintWriter(new FileWriter("day21-26-lig-sistemi/" + dosyaAdi))) {
+            for (Mac m : maclar) {
+                yaziciMac.println(m.dosyaSatiri());
+            }
+        }
+    }
+
+    int yukle(String ligDosyasi, String macDosyasi) throws IOException {
+        int atlananSatir = 0;
+        try (Scanner dosyaOku1 = new Scanner(new File("day21-26-lig-sistemi/" + ligDosyasi))) {
+            while (dosyaOku1.hasNextLine()) {
+                try {
+                    String[] parcalar = dosyaOku1.nextLine().split(",");
+                    Takim takim = new Takim(parcalar[0].toUpperCase(), Integer.parseInt(parcalar[2]),
+                            Integer.parseInt(parcalar[3]),
+                            Integer.parseInt(parcalar[4]), Integer.parseInt(parcalar[5]),
+                            Integer.parseInt(parcalar[6]));
+                    takimEkle(takim);
+                } catch (ArrayIndexOutOfBoundsException | NumberFormatException | TakimZatenVarException e) {
+                    atlananSatir++;
+                }
+
+            }
+        }
+
+        try (Scanner dosyaOku2 = new Scanner(new File("day21-26-lig-sistemi/" + macDosyasi))) {
+            while (dosyaOku2.hasNextLine()) {
+                try {
+                    String[] parcalar = dosyaOku2.nextLine().split(",");
+                    Takim takim1 = getTakim(parcalar[0]);
+                    Takim takim2 = getTakim(parcalar[2]);
+                    Mac mac;
+                    if ("NORMAL".equalsIgnoreCase(parcalar[4])) {
+                        mac = new NormalSezonMaci(takim1, takim2);
+                    } else {
+                        mac = new PlayOffMaci(takim1, takim2);
+                    }
+                    mac.setSkor(Integer.parseInt(parcalar[1]), Integer.parseInt(parcalar[3]));
+                    mac.setOynandiMi();
+                    macEkle(mac);
+                } catch (ArrayIndexOutOfBoundsException | NumberFormatException | TakimBulunamadiException
+                        | GecersizSkorException | BerabereSonuclanamazException e) {
+                    atlananSatir++;
+                }
+            }
+        }
+        return atlananSatir;
     }
 }

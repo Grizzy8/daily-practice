@@ -5,7 +5,7 @@ public class NormalSezonMaci extends Mac {
     }
 
     @Override
-    protected void skorlariUret() throws GecersizSkorException {
+    protected void skorlariUret() throws GecersizSkorException, BerabereSonuclanamazException {
         int evSkor = rastgeleSkorOlustur();
         int deplasmanSkor = rastgeleSkorOlustur();
 
@@ -39,5 +39,10 @@ public class NormalSezonMaci extends Mac {
             getDeplasman().atilanGolEkle(getDeplasmanSkor());
             getDeplasman().yenilenGolEkle(getEvSahibiSkor());
         }
+    }
+
+    @Override
+    protected String macTipi() {
+        return "NORMAL";
     }
 }

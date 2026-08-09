@@ -5,7 +5,15 @@ public class PlayOffMaci extends Mac {
     }
 
     @Override
-    protected void skorlariUret() throws GecersizSkorException {
+    void setSkor(int evSahibiSkor, int deplasmanSkor) throws GecersizSkorException, BerabereSonuclanamazException {
+        if (evSahibiSkor == deplasmanSkor) {
+            throw new BerabereSonuclanamazException("Berabere sonuçlanamaz.");
+        }
+        super.setSkor(evSahibiSkor, deplasmanSkor);
+    }
+
+    @Override
+    protected void skorlariUret() throws GecersizSkorException, BerabereSonuclanamazException {
         boolean gecerliSkor = false;
         while (!gecerliSkor) {
             int evSkor = rastgeleSkorOlustur();
@@ -37,7 +45,13 @@ public class PlayOffMaci extends Mac {
             getDeplasman().atilanGolEkle(getDeplasmanSkor());
             getDeplasman().yenilenGolEkle(getEvSahibiSkor());
         } else {
+            // setSkor() zaten berabereyi engelliyor, buraya normalde ulaşılmaması gerekiyor
             throw new BerabereSonuclanamazException("Berabere sonuclanamaz.");
         }
+    }
+
+    @Override
+    protected String macTipi() {
+        return "PLAYOFF";
     }
 }

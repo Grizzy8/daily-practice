@@ -11,7 +11,7 @@ abstract class Mac {
         oynandiMi = false;
     }
 
-    void setSkor(int evSahibiSkor, int deplasmanSkor) throws GecersizSkorException {
+    void setSkor(int evSahibiSkor, int deplasmanSkor) throws GecersizSkorException, BerabereSonuclanamazException {
         if (evSahibiSkor < 0 || deplasmanSkor < 0) {
             throw new GecersizSkorException("Negatif skor olamaz");
         } else {
@@ -22,6 +22,10 @@ abstract class Mac {
 
     final void sonucuIsle() throws BerabereSonuclanamazException {
         sonucuHesapla();
+        setOynandiMi();
+    }
+
+    void setOynandiMi() {
         oynandiMi = true;
     }
 
@@ -47,9 +51,16 @@ abstract class Mac {
         return oynandiMi;
     }
 
-    abstract void skorlariUret() throws GecersizSkorException;
+    abstract void skorlariUret() throws GecersizSkorException, BerabereSonuclanamazException;
 
     protected int rastgeleSkorOlustur() {
         return (int) (Math.random() * 6);
     }
+
+    String dosyaSatiri() {
+        return evSahibi.getIsim() + "," + evSahibiSkor + "," + deplasman.getIsim() + "," + deplasmanSkor + ","
+                + macTipi();
+    }
+
+    protected abstract String macTipi();
 }

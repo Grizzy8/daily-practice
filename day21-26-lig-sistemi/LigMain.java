@@ -7,7 +7,7 @@ public class LigMain {
 
         Lig lig1 = new Lig();
         LigArayuzu arayuz = new LigArayuzu(lig1);
-        arayuz.calistir(input);
+        arayuz.menuDongusu(input);
 
         input.close();
     }

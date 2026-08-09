@@ -72,6 +72,11 @@ public class Takim {
         return (galibiyet * 3) + beraberlik;
     }
 
+    String dosyaSatiri() {
+        return isim + "," + oynananMacHesapla() + "," + galibiyet + "," + beraberlik + "," + maglubiyet + ","
+                + atilanGol + "," + yenilenGol + "," + puanHesapla();
+    }
+
     @Override
     public String toString() {
         return "Takım: " + isim + " | OM: " + oynananMacHesapla() + " G: " + galibiyet + " B: " + beraberlik + " M: "
