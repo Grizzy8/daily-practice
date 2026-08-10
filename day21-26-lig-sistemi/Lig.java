@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -191,5 +192,63 @@ public class Lig {
             }
         }
         return atlananSatir;
+    }
+
+    Takim enCokGolAtanTakim() {
+        return enIyisiniBul(Comparator.comparingInt(takim -> takim.getAtilanGol()));
+    }
+
+    Takim enIyiSavunma() {
+        return enIyisiniBul(Comparator.comparingInt((Takim takim) -> takim.getYenilenGol()).reversed());
+    }
+
+    Takim enYuksekAveraj() {
+        return enIyisiniBul(Comparator.comparingInt(takim -> takim.averajHesapla()));
+    }
+
+    Takim ligdeEnUzunSeri() {
+        return enIyisiniBul(Comparator.comparingInt(takim -> birTakiminEnUzunSerisi(takim)));
+    }
+
+    private Takim enIyisiniBul(Comparator<Takim> karsilastirici) {
+        if (takimlar.isEmpty()) {
+            return null;
+        }
+        ArrayList<Takim> liste = new ArrayList<>(takimlar.values());
+        Takim enIyi = liste.getFirst();
+        for (int i = 1; i < liste.size(); i++) {
+            Takim mevcut = liste.get(i);
+            if (karsilastirici.compare(enIyi, mevcut) < 0) {
+                enIyi = mevcut;
+            }
+        }
+        return enIyi;
+    }
+
+    int birTakiminEnUzunSerisi(Takim t) {
+        int seri = 0;
+        int enUzunSeri = 0;
+        for (Mac m : maclar) {
+            if (!m.getOynandiMi()) {
+                continue;
+            }
+            if (m.getEvSahibi() == t) {
+                if (m.getDeplasmanSkor() < m.getEvSahibiSkor()) {
+                    seri++;
+                } else {
+                    seri = 0;
+                }
+            } else if (m.getDeplasman() == t) {
+                if (m.getEvSahibiSkor() < m.getDeplasmanSkor()) {
+                    seri++;
+                } else {
+                    seri = 0;
+                }
+            }
+            if (enUzunSeri < seri) {
+                enUzunSeri = seri;
+            }
+        }
+        return enUzunSeri;
     }
 }

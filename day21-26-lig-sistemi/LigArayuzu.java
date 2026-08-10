@@ -22,7 +22,7 @@ public class LigArayuzu {
 
         while (true) {
             int tercih = okuInt(input,
-                    "Ne yapmak istiyorsunuz?%n1) Takım Ekle%n2) Fikstür oluştur%n3) Maç Skorlarını Gir%n4) Sezonu Simüle Et%n5) Puan Tablosunu Göster%n6) Kaydet%n7) Çıkış%nTercih: ");
+                    "Ne yapmak istiyorsunuz?%n1) Takım Ekle%n2) Fikstür oluştur%n3) Maç Skorlarını Gir%n4) Sezonu Simüle Et%n5) Puan Tablosunu Göster%n6) Kaydet%n7) İstatistik Raporu%n8) Çıkış%nTercih: ");
             switch (tercih) {
                 case 1:
                     System.out.print("Takım ismi: ");
@@ -73,6 +73,9 @@ public class LigArayuzu {
                     }
                     break;
                 case 7:
+                    istatistikRaporuYazdir();
+                    break;
+                case 8:
                     return;
                 default:
                     System.out.println("Lütfen menü numaralarından birini seçin");
@@ -91,6 +94,25 @@ public class LigArayuzu {
                     t.oynananMacHesapla(), t.getGalibiyet(), t.getBeraberlik(), t.getMaglubiyet(), t.getAtilanGol(),
                     t.getYenilenGol(), t.averajHesapla(), t.puanHesapla());
         }
+    }
+
+    void istatistikRaporuYazdir() {
+        Takim gollu = lig.enCokGolAtanTakim();
+        Takim enAzGolYiyen = lig.enIyiSavunma();
+        Takim averajli = lig.enYuksekAveraj();
+        Takim serili = lig.ligdeEnUzunSeri();
+        if (gollu == null) {
+            System.out.println("Henüz takım eklenmedi.");
+            return;
+        }
+        System.out.println(
+                "Golcü takım: " + gollu.getIsim() + " ( " + gollu.getAtilanGol() + " gol )");
+        System.out.println(
+                "En az gol yiyen takım: " + enAzGolYiyen.getIsim() + " ( " + enAzGolYiyen.getYenilenGol() + " gol )");
+        System.out.println(
+                "En yüksek averajlı takım: " + averajli.getIsim() + " ( " + averajli.averajHesapla() + " )");
+        System.out.println(
+                "En uzun galibiyet serisi: " + serili.getIsim() + " ( " + lig.birTakiminEnUzunSerisi(serili) + " maç )");
     }
 
     private int okuInt(Scanner input, String mesaj) {
