@@ -29,3 +29,4 @@ Günlük kod pratikleri, küçük denemeler ve öğrenme kayıtları.
 - [x] Day 23 - Lig Sistemi: Puan Tablosu Sıralama (Java)
 - [x] Day 24 - Lig Sistemi: Custom Exception ve Katmanlı Mimari (Java)
 - [x] Day 25 - Lig Sistemi: Dosya İşlemleri ve Menü (Java)
+- [x] Day 26 - Lig Sistemi: İstatistik Raporu ve Gözden Geçirme (Java)
