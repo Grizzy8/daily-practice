@@ -37,15 +37,18 @@ public class Lig {
         }
     }
 
-    void fiksturOlustur() {
+    int fiksturOlustur() {
+        int eklenenMac = 0;
         for (Takim ev : takimlar.values()) {
             for (Takim deplasman : takimlar.values()) {
                 if (ev != deplasman && macBul(ev.getIsim(), deplasman.getIsim()) == null) {
                     NormalSezonMaci sMac = new NormalSezonMaci(ev, deplasman);
                     macEkle(sMac);
+                    eklenenMac++;
                 }
             }
         }
+        return eklenenMac;
     }
 
     void macEkle(Mac mac) {
@@ -206,8 +209,25 @@ public class Lig {
         return enIyisiniBul(Comparator.comparingInt(takim -> takim.averajHesapla()));
     }
 
-    Takim ligdeEnUzunSeri() {
-        return enIyisiniBul(Comparator.comparingInt(takim -> birTakiminEnUzunSerisi(takim)));
+    EnUzunSeriSonucu ligdeEnUzunSeri() {
+        if (takimlar.isEmpty()) {
+            return null;
+        }
+        ArrayList<Takim> liste = new ArrayList<>(takimlar.values());
+        Takim enIyiTakim = liste.getFirst();
+        int enIyiSeri = birTakiminEnUzunSerisi(enIyiTakim);
+
+        for (int i = 1; i < liste.size(); i++) {
+            Takim takim = liste.get(i);
+            int seriSayisi = birTakiminEnUzunSerisi(takim);
+
+            if (enIyiSeri < seriSayisi) {
+                enIyiTakim = takim;
+                enIyiSeri = seriSayisi;
+            }
+        }
+
+        return new EnUzunSeriSonucu(enIyiTakim, enIyiSeri);
     }
 
     private Takim enIyisiniBul(Comparator<Takim> karsilastirici) {

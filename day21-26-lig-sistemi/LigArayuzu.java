@@ -30,12 +30,18 @@ public class LigArayuzu {
                     Takim takim1 = new Takim(isim, 0, 0, 0, 0, 0);
                     try {
                         lig.takimEkle(takim1);
+                        System.out.println("Takım eklendi.");
                     } catch (TakimZatenVarException e) {
                         System.out.println(e);
                     }
                     break;
                 case 2:
-                    lig.fiksturOlustur();
+                    int eklenenMac = lig.fiksturOlustur();
+                    if (eklenenMac != 0) {
+                        System.out.println("Fikstür oluşturuldu.");
+                    } else {
+                        System.out.println("Fikstür zaten oluşturulmuş.");
+                    }
                     break;
                 case 3:
                     System.out.print("Evsahibi takım: ");
@@ -46,6 +52,7 @@ public class LigArayuzu {
                     int deplasmanSkor = okuInt(input, "Deplasman takımın skoru: ");
                     try {
                         lig.macSkorGir(evIsim, deplasmanIsim, evSkor, deplasmanSkor);
+                        System.out.println("Maç bilgileri başarıyla işlendi.");
                     } catch (MacBulunamadiException | MacZatenOynandiException | GecersizSkorException
                             | BerabereSonuclanamazException e) {
                         System.out.println(e);
@@ -54,6 +61,7 @@ public class LigArayuzu {
                 case 4:
                     try {
                         lig.tumMaclariOyna();
+                        System.out.println("Sezon rastgele skorlarla simüle edildi.");
                     } catch (GecersizSkorException | BerabereSonuclanamazException e) {
                         System.out.println(e);
                     }
@@ -68,6 +76,7 @@ public class LigArayuzu {
                     try {
                         lig.kaydetLig("Lig.txt");
                         lig.kaydetMac("Mac.txt");
+                        System.out.println("Lig bilgileri başarıyla kaydedildi.");
                     } catch (IOException e) {
                         System.out.println(e);
                     }
@@ -100,7 +109,7 @@ public class LigArayuzu {
         Takim gollu = lig.enCokGolAtanTakim();
         Takim enAzGolYiyen = lig.enIyiSavunma();
         Takim averajli = lig.enYuksekAveraj();
-        Takim serili = lig.ligdeEnUzunSeri();
+        EnUzunSeriSonucu serili = lig.ligdeEnUzunSeri();
         if (gollu == null) {
             System.out.println("Henüz takım eklenmedi.");
             return;
@@ -112,7 +121,7 @@ public class LigArayuzu {
         System.out.println(
                 "En yüksek averajlı takım: " + averajli.getIsim() + " ( " + averajli.averajHesapla() + " )");
         System.out.println(
-                "En uzun galibiyet serisi: " + serili.getIsim() + " ( " + lig.birTakiminEnUzunSerisi(serili) + " maç )");
+                "En uzun galibiyet serisi: " + serili.getTakim().getIsim() + " ( " + serili.getSeri() + " maç )");
     }
 
     private int okuInt(Scanner input, String mesaj) {
